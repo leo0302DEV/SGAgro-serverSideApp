@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Back-end do sistema SGAgro - Sistema de Gerenciamento Agropecuário.",
   "main": "./index.js",
+  "type": "module",
   "scripts": {
     "start:dev": "nodemon index.js"
   },
