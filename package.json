@@ -1,0 +1,17 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Back-end do sistema SGAgro - Sistema de Gerenciamento Agropecuário.",
+  "main": "./index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js"
+  },
+  "author": "Leonardo Kramer Nadal",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3"
+  }
+}
