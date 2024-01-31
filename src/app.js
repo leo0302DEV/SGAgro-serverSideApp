@@ -1,28 +1,68 @@
 import express from "express";
+import conectToDataBase from "./config/dbConection.js";
+import { animalSchema } from "./models/AnimalSchema.js";
+
+const conexao = await conectToDataBase();
+
+conexao.on("error", (error) => {
+    console.log("Erro de conexão com o banco: " + error);
+});
+
+conexao.once("open", () => {
+    console.log("Conexão com o banco feita com sucesso!");
+});
 
 const app = express();
 app.use(express.json());
 
-const dataBese = [
-    {
-        nome: "Harry Potter",
-        paginas: 360,
-    },
-    {
-        nome: "Senhor dos Anéis",
-        paginas: 536,
+app.get("/animals", async (req, res) => {
+    try {
+        const animaisCadastrados = await animalSchema.find({});
+        res.status(200).json(animaisCadastrados);
+    } catch (error) {
+        res.status(500).json({ erro: error });
     }
-];
-
-app.get("/", (req, res) => {
-    res.status(200).send("Teste");
 });
 
-app.get("/livros", (req, res) => {
-    const livros = dataBese;
-    res.status(200).send(livros);
+app.get("/animals/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const animalCadastrado = await animalSchema.findById(id);
+        res.status(200).json(animalCadastrado);
+    } catch (error) {
+        res.status(500).json({ erro: error });
+    }
+});
+
+app.post("/animals", async (req, res) => {
+    try {
+        const animalParaCadastrar = req.body;
+        await animalSchema.create(animalParaCadastrar);
+        res.status(201).json({ message: "Cadastrado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ erro: error });
+    }
+});
+
+app.put("/animals/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const alteracoes = req.body;
+        await animalSchema.findByIdAndUpdate(id, alteracoes);
+        res.status(201).json({ message: "Atualizado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ erro: error });
+    }
+});
+
+app.delete("/animals/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        await animalSchema.findByIdAndDelete(id);
+        res.status(201).json({ message: "deletado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ erro: error });
+    }
 });
 
 export default app;
-
-
