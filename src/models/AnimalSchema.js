@@ -1,17 +1,12 @@
 import mongoose from "mongoose";
+import { MedicamentacaoSchema } from "./MedicamentacaoSchema.js";
 
 const AnimalSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     numeroBrinco: { type: String, required: true },
     idade: { type: Number, required: true },
     peso: { type: Number, required: true },
-    medicamentacao: [
-        {
-            nomeMedicamento: { type: String, required: true },
-            dataAplicacao: { type: Date, required: true },
-            status: { type: String, required: true },
-        }
-    ],
+    medicamentacao: [MedicamentacaoSchema],
     dataCadastramento: { type: Date, required: true },
     historicoVeterinario: { type: String },
     sexoAnimal: { type: String, required: true },

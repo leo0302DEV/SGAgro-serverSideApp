@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 async function conectToDataBase() {
-
     try {
         mongoose.connect(
             process.env.DB_CONECTION_STRING
