@@ -4,7 +4,11 @@
   "description": "Back-end do sistema SGAgro - Sistema de Gerenciamento Agropecuário.",
   "main": "./index.js",
   "type": "module",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
+    "start": "node index.js",
     "start:dev": "nodemon index.js"
   },
   "author": "Leonardo Kramer Nadal",
