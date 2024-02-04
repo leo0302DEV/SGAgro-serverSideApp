@@ -15,6 +15,7 @@ conexao.once("open", () => {
 const app = express();
 app.use(express.json());
 
+app.get("/", AppController.testRoute);
 app.get("/animals", AppController.returnAllAnimalsObj);
 app.get("/animals/:id", AppController.returnOnlyOneAnimalObj);
 app.post("/animals", AppController.createAnimalObj);
