@@ -10,7 +10,7 @@ const AnimalSchema = new mongoose.Schema({
     dataCadastramento: { type: Date, required: true },
     historicoVeterinario: { type: String },
     sexoAnimal: { type: String, required: true },
-    prenhura: { type: Boolean, required: true },
+    prenhura: { type: Boolean },
     raçaAnimal: { type: String, required: true },
 }, { versionKey: false });
 
