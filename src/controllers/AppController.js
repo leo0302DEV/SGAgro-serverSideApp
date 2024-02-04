@@ -2,17 +2,6 @@ import { animalSchema } from "../models/AnimalSchema.js";
 
 export default class AppController {
 
-    static async testRoute(req, res) {
-        try {
-            res.status(200).json({
-                message: "Rodando",
-                status: 200,
-            })
-        } catch (error) {
-            res.status(500).json({ erro: error });
-        }
-    }
-
     static async returnAllAnimalsObj(req, res) {
         try {
             const animaisCadastrados = await animalSchema.find({});

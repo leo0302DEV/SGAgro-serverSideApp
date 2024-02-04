@@ -4,5 +4,5 @@ import app from "./src/app.js";
 const PORT = process.env.APP_PORT;
 
 app.listen(PORT, () => {
-    console.log("Server runing on http://localhost:80");
+    console.log("Server runing");
 });
