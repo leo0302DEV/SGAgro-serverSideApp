@@ -5,7 +5,8 @@ export default class AppController {
     static async returnAllAnimalsObj(req, res) {
         try {
             const animaisCadastrados = await animalSchema.find({});
-            res.status(200).json(animaisCadastrados);
+            res.setHeader("Content-Type", "application/json");
+            res.status(200).send(JSON.stringify(animaisCadastrados));;
         } catch (error) {
             res.status(500).json({ erro: error });
         }
@@ -15,17 +16,8 @@ export default class AppController {
         try {
             const id = req.params.id;
             const animalCadastrado = await animalSchema.findById(id);
-            res.status(200).json(animalCadastrado);
-        } catch (error) {
-            res.status(500).json({ erro: error });
-        }
-    }
-
-    static async createAnimalObj(req, res) {
-        try {
-            const animalParaCadastrar = req.body;
-            await animalSchema.create(animalParaCadastrar);
-            res.status(201).json({ message: "Cadastrado com sucesso" });
+            res.setHeader("Content-Type", "application/json");
+            res.status(200).send(JSON.stringify(animalCadastrado));
         } catch (error) {
             res.status(500).json({ erro: error });
         }
