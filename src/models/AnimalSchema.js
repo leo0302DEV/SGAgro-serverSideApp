@@ -7,7 +7,7 @@ const AnimalSchema = new mongoose.Schema({
     idade: { type: Number, required: true },
     peso: { type: Number, required: true },
     medicamentacao: [MedicamentacaoSchema],
-    dataCadastramento: { type: Date, required: true },
+    dataCadastramento: { type: String, required: true },
     historicoVeterinario: { type: String },
     sexoAnimal: { type: String, required: true },
     prenhura: { type: Boolean },
