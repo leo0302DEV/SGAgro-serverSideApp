@@ -4,7 +4,7 @@ import { MedicamentacaoSchema } from "./MedicamentacaoSchema.js";
 const AnimalSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     numeroBrinco: { type: String, required: true },
-    idade: { type: Number, required: true },
+    idade: { type: String, required: true },
     peso: { type: Number, required: true },
     medicamentacao: [MedicamentacaoSchema],
     dataCadastramento: { type: String, required: true },
