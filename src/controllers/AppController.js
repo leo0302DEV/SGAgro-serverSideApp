@@ -53,4 +53,42 @@ export default class AppController {
             res.status(500).json({ erro: error });
         }
     }
+
+    static async modifyGroupOfAnimals(req, res) {
+        try {
+            const earingNumbers = req.query.earingq;
+            const modifications = req.body;
+            const arrEaringNumbers = earingNumbers.match(/\d{3}/g);
+            const arrOfFindedAnimal = [];
+
+            for (let i = 0; i < arrEaringNumbers.length; i++) {
+                const findedAnimal = await animalSchema.find({ numeroBrinco: arrEaringNumbers[i] });
+                if (findedAnimal) arrOfFindedAnimal.push(findedAnimal);
+            }
+
+            for (let j = 0; j < arrOfFindedAnimal.length; j++) {
+                const medicamentacaoAtual = arrOfFindedAnimal[j][0].medicamentacao;
+                const medicamentacaoInserida = modifications.medicamentacao;
+                const medicamentacaoModificada = [...medicamentacaoAtual, ...medicamentacaoInserida];
+
+                const historicoAtual = arrOfFindedAnimal[j][0].historicoVeterinario;
+                const historicoInserido = modifications.historicoVeterinario;
+                const historicoModificado = historicoAtual + " " + historicoInserido;
+
+                arrOfFindedAnimal[j][0].medicamentacao = medicamentacaoModificada;
+                arrOfFindedAnimal[j][0].historicoVeterinario = historicoModificado;
+            }
+
+            for (let k = 0; k < arrOfFindedAnimal.length; k++) {
+                const animalId = arrOfFindedAnimal[k][0]._id;
+                const alteracoes = arrOfFindedAnimal[k][0];
+
+                await animalSchema.findByIdAndUpdate(animalId, alteracoes);
+            }
+
+            res.status(201).json(arrOfFindedAnimal);
+        } catch (error) {
+            res.status(404).json({ message: "Não foram encontrados cadastros correspondentes aos números fornecidos." });
+        }
+    }
 }
