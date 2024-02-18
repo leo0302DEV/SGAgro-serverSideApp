@@ -8,7 +8,12 @@ export default class AppController {
             res.setHeader("Content-Type", "application/json");
             res.status(200).send(JSON.stringify(animaisCadastrados));;
         } catch (error) {
-            res.status(500).json({ erro: error });
+            res.status(500).json({
+                message: "Houve um erro interno do servidor, tente voltar a página principal e recaregar o site.",
+                status: 500,
+                statusMessage: "500 internal server error",
+                erro: error,
+            });
         }
     }
 
@@ -19,7 +24,12 @@ export default class AppController {
             res.setHeader("Content-Type", "application/json");
             res.status(200).send(JSON.stringify(animalCadastrado));
         } catch (error) {
-            res.status(500).json({ erro: error });
+            res.status(500).json({
+                message: "Houve um erro interno do servidor, tente voltar a página principal e recaregar o site.",
+                status: 500,
+                statusMessage: "500 internal server error",
+                erro: error,
+            });
         }
     }
 
@@ -31,7 +41,11 @@ export default class AppController {
 
             if (verificacaoDeRepeticao.length <= 0) {
                 await animalSchema.create(animalParaCadastrar);
-                res.status(201).json({ message: "Cadastrado com sucesso" });
+                res.status(201).json({
+                    message: "Cadastrado com sucesso",
+                    status: 201,
+                    statusMessage: "201 created",
+                });
             } else {
                 res.status(400).json({
                     message: "Você não pode criar um novo cadastro com um número de brinco repetido! Mude o número e então prossiga com o cadastro.",
@@ -41,7 +55,12 @@ export default class AppController {
             }
 
         } catch (error) {
-            res.status(500).json({ erro: error });
+            res.status(500).json({
+                message: "Houve algum erro interno do servidor ou as informações passadas são invalidas. Tente novamente.",
+                status: 500,
+                statusMessage: "500 internal server error",
+                erro: error,
+            });
         }
     }
 
@@ -50,9 +69,18 @@ export default class AppController {
             const id = req.params.id;
             const alteracoes = req.body;
             await animalSchema.findByIdAndUpdate(id, alteracoes);
-            res.status(201).json({ message: "Atualizado com sucesso" });
+            res.status(201).json({
+                message: "Atualizado com sucesso",
+                status: 201,
+                statusMessage: "201 created",
+            });
         } catch (error) {
-            res.status(500).json({ erro: error });
+            res.status(500).json({
+                message: "Houve algum erro interno do servidor ou as informações passadas são invalidas. Tente novamente.",
+                status: 500,
+                statusMessage: "500 internal server error",
+                erro: error,
+            });
         }
     }
 
@@ -60,9 +88,18 @@ export default class AppController {
         try {
             const id = req.params.id;
             await animalSchema.findByIdAndDelete(id);
-            res.status(201).json({ message: "deletado com sucesso" });
+            res.status(201).json({
+                message: "Deletado com sucesso!",
+                status: 201,
+                statusMessage: "201 deleted",
+            });
         } catch (error) {
-            res.status(500).json({ erro: error });
+            res.status(500).json({
+                message: "Houve um erro interno ao deletar o cadastro, tente novamente.",
+                status: 500,
+                statusMessage: "500 internal server error",
+                erro: error,
+            });
         }
     }
 
@@ -98,9 +135,17 @@ export default class AppController {
                 await animalSchema.findByIdAndUpdate(animalId, alteracoes);
             }
 
-            res.status(201).json({ message: "Cadastros modificados com sucesso!" });
+            res.status(201).json({
+                message: "Cadastros modificados com sucesso!",
+                status: 201,
+                statusMessage: "201 created",
+            });
         } catch (error) {
-            res.status(404).json({ message: "Não foram encontrados cadastros correspondentes aos números fornecidos." });
+            res.status(404).json({
+                message: "Não foram encontrados cadastros correspondentes aos números fornecidos.",
+                status: 404,
+                statusMessage: "404 not foud",
+            });
         }
     }
 }
