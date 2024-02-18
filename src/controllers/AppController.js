@@ -26,8 +26,16 @@ export default class AppController {
     static async createAnimalObj(req, res) {
         try {
             const animalParaCadastrar = req.body;
-            await animalSchema.create(animalParaCadastrar);
-            res.status(201).json({ message: "Cadastrado com sucesso" });
+            const earingNumber = animalParaCadastrar.numeroBrinco;
+            const verificacaoDeRepeticao = await animalSchema.find({ numeroBrinco: earingNumber });
+
+            if (verificacaoDeRepeticao.length <= 0) {
+                await animalSchema.create(animalParaCadastrar);
+                res.status(201).json({ message: "Cadastrado com sucesso" });
+            } else {
+                res.status(400).json({ message: "Você não pode criar um novo cadastro com um número de brinco repetido! Mude o número e então prossiga com o cadastro." });
+            }
+
         } catch (error) {
             res.status(500).json({ erro: error });
         }
