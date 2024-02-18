@@ -98,7 +98,7 @@ export default class AppController {
                 await animalSchema.findByIdAndUpdate(animalId, alteracoes);
             }
 
-            res.status(201).json(arrOfFindedAnimal);
+            res.status(201).json({ message: "Cadastros modificados com sucesso!" });
         } catch (error) {
             res.status(404).json({ message: "Não foram encontrados cadastros correspondentes aos números fornecidos." });
         }
