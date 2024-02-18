@@ -33,7 +33,11 @@ export default class AppController {
                 await animalSchema.create(animalParaCadastrar);
                 res.status(201).json({ message: "Cadastrado com sucesso" });
             } else {
-                res.status(400).json({ message: "Você não pode criar um novo cadastro com um número de brinco repetido! Mude o número e então prossiga com o cadastro." });
+                res.status(400).json({
+                    message: "Você não pode criar um novo cadastro com um número de brinco repetido! Mude o número e então prossiga com o cadastro.",
+                    status: 400,
+                    statusMessage: "400 bad request",
+                });
             }
 
         } catch (error) {
